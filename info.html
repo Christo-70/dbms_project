@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .form-container {
+            width: 80%;
+            max-width: 600px;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="file"],
+        input[type="date"],
+        input[type="number"] {
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .flex-row {
+            display: flex;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        @media (max-width: 600px) {
+            .flex-row {
+                flex-direction: column;
+            }
+        }
+
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .button-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .button-container .verified {
+            background-color: red;
+            border: none;
+        }
+
+        .button-container .verified.active {
+            background-color: #D9E7E2;
+            color: black;
+            border: 2px solid green;
+            font-weight: bold;
+        }
+
+        .room-booking {
+            background-color: #007bff;
+            border: none;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .room-booking.enabled {
+            opacity: 1;
+            cursor: pointer;
+        }
+
+        .eye-button {
+            cursor: pointer;
+            font-size: 20px;
+            margin-left: 10px;
+        }
+
+        .eye-button img {
+            width: 20px;
+            height: 20px;
+            filter: grayscale(100%);
+        }
+
+        .eye-button.active img {
+            filter: none;
+            box-shadow: 0 0 5px rgba(0, 128, 255, 0.7);
+        }
+
+        .document-preview {
+            display: none;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Enter Credentials</h1>
+        <div class="form-section">
+            <!-- Head Info -->
+            <div class="flex-row">
+                <div class="form-group">
+                    <label>Enter First Name</label>
+                    <input type="text" placeholder="First name" required />
+                </div>
+                <div class="form-group">
+                    <label>Enter Last Name</label>
+                    <input type="text" placeholder="Last name" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Upload Verification Document</label>
+                <input type="file" id="verificationDocument" required />
+                <div id="verificationDocumentPreview" class="document-preview">No document uploaded</div>
+            </div>
+
+            <!-- Dynamic Member Fields -->
+            <div class="flex-row">
+                <div class="form-group">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" name="dob" max="" required />
+                </div>
+                <div class="form-group">
+                    <label>Total Colleagues/Family Members</label>
+                    <input type="number" id="memberCount" min="0" value="0" required />
+                </div>
+            </div>
+            <div id="memberFields"></div>
+        </div>
+
+        <!-- Button container -->
+        <div class="button-container">
+            <button class="verified" id="verifyBtn" onclick="toggleVerification()">Not Verified</button>
+            <button class="room-booking" id="roomBookingBtn" disabled>Room Booking -></button>
+             
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="verifivation.js"></script>
+    <!-- <script>
+        const today = new Date().toISOString().split("T")[0];
+        document.getElementById("dob").setAttribute("max", today);
+    
+        const memberCountInput = document.getElementById('memberCount');
+        const memberFieldsContainer = document.getElementById('memberFields');
+        const roomBookingBtn = document.getElementById('roomBookingBtn');
+        const verifyBtn = document.getElementById('verifyBtn');
+    
+        memberCountInput.addEventListener('input', function () {
+            const count = parseInt(memberCountInput.value) || 0;
+            memberFieldsContainer.innerHTML = '';
+    
+            for (let i = 1; i <= count; i++) {
+                const memberCard = document.createElement('div');
+                memberCard.classList.add('card');
+    
+                const memberTitle = document.createElement('h3');
+                memberTitle.textContent = `Member ${i}`;
+    
+                const labelFirstName = document.createElement('label');
+                labelFirstName.textContent = `First Name`;
+    
+                const inputFirstName = document.createElement('input');
+                inputFirstName.type = 'text';
+                inputFirstName.placeholder = `Enter Member ${i} First Name`;
+                inputFirstName.required = true;
+    
+                const labelLastName = document.createElement('label');
+                labelLastName.textContent = `Last Name`;
+    
+                const inputLastName = document.createElement('input');
+                inputLastName.type = 'text';
+                inputLastName.placeholder = `Enter Member ${i} Last Name`;
+                inputLastName.required = true;
+    
+                const labelDoc = document.createElement('label');
+                labelDoc.textContent = `Upload Document`;
+    
+                const inputDoc = document.createElement('input');
+                inputDoc.type = 'file';
+                inputDoc.id = `member${i}Document`;
+                inputDoc.required = true;
+    
+                const eyeButton = document.createElement('span');
+                eyeButton.classList.add('eye-button');
+                eyeButton.innerHTML = `<img src="/mnt/data/eye.png" alt="View" />`;
+                eyeButton.onclick = () => toggleDocumentPreview(`member${i}Document`, `member${i}DocumentPreview`);
+    
+                const documentPreview = document.createElement('div');
+                documentPreview.id = `member${i}DocumentPreview`;
+                documentPreview.classList.add('document-preview');
+                documentPreview.textContent = 'No preview available';
+    
+                memberCard.appendChild(memberTitle);
+                memberCard.appendChild(labelFirstName);
+                memberCard.appendChild(inputFirstName);
+                memberCard.appendChild(labelLastName);
+                memberCard.appendChild(inputLastName);
+                memberCard.appendChild(labelDoc);
+                memberCard.appendChild(inputDoc);
+                memberCard.appendChild(eyeButton);
+                memberCard.appendChild(documentPreview);
+    
+                memberFieldsContainer.appendChild(memberCard);
+            }
+        });
+    
+        // Toggle Document Preview
+        function toggleDocumentPreview(inputId, previewId) {
+            const input = document.getElementById(inputId);
+            const preview = document.getElementById(previewId);
+            const eyeButton = input.parentElement.querySelector('.eye-button');
+    
+            if (input && input.files.length > 0) {
+                preview.textContent = input.files[0].name;
+                preview.style.display = 'block';
+                eyeButton.classList.add('active'); // Highlight the eye button
+            } else {
+                preview.textContent = 'No document uploaded';
+                preview.style.display = 'block';
+                eyeButton.classList.remove('active'); // Remove highlight from the eye button
+            }
+        }
+    
+        // Helper function to check if all required fields are completed
+        function checkFormCompletion() {
+            const allRequiredFields = document.querySelectorAll('input[required]');
+            return Array.from(allRequiredFields).every(field => field.value.trim() !== '');
+        }
+    
+        // Toggle verification button
+        function toggleVerification() {
+            if (checkFormCompletion()) {
+                const isVerified = verifyBtn.classList.toggle('active');
+                verifyBtn.textContent = isVerified ? 'Verified' : 'Not Verified';
+                roomBookingBtn.disabled = !isVerified;
+                roomBookingBtn.classList.toggle('enabled', isVerified);
+    
+                if (isVerified) {
+                    roomBookingBtn.setAttribute('onclick', 'window.location.href="index.html"');
+                } else {
+                    roomBookingBtn.removeAttribute('onclick');
+                }
+            } else {
+                alert('Please complete all required fields to enable verification.');
+            }
+        }
+    </script> -->
+    
+</body>
+</html>
+

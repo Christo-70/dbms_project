@@ -1,0 +1,121 @@
+/* Reset and Basic Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #4caf50, #81c784);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #333;
+}
+
+/* Container Styling */
+.container {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Crestview Branding */
+.welcome {
+    font-family: 'Georgia', serif;
+    font-size: 28px;
+    font-weight: bold;
+    color: #4caf50;
+    background: linear-gradient(90deg, #4caf50, #81c784);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.subtitle {
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 25px;
+}
+
+/* Input Group Styling */
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.input-group input[type="text"],
+.input-group input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background-color: #f8f9fa;
+}
+
+/* Checkbox Group Styling */
+.input-group.checkbox-group {
+    display: flex;
+    align-items: center;
+}
+
+.input-group input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+/* Button Styling */
+.options {
+    margin-top: 20px;
+}
+
+button {
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+button.login-button {
+    background-color: #4caf50;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+button.login-button:hover {
+    background-color: #388e3c;
+}
+
+button.forgot-password {
+    background-color: transparent;
+    color: #4caf50;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+button.forgot-password:hover {
+    color: #388e3c;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}

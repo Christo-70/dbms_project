@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Hotel Bliss</title>
+    <style>
+        /* Reset styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body and Container Styles */
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+           background-color: rgb(209, 65, 65);
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            text-align: center;
+            padding: 100px 20px;
+        }
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        .hero .btn {
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .hero .btn:hover {
+            background-color: #218838;
+        }
+
+        /* About Section */
+        .about {
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .about h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #28a745;
+        }
+        .about p {
+            font-size: 1.1em;
+            color: #666;
+            line-height: 1.6;
+            max-width: 700px;
+            margin: auto;
+        }
+
+        /* Amenities Section */
+        .amenities {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 60px 20px;
+            background-color: #fff;
+        }
+        .amenities .amenity {
+            flex: 1 1 300px;
+            text-align: center;
+            padding: 20px;
+            margin: 10px;
+            border: 1px solid #eee;
+            border-radius: 10px;
+        }
+        .amenities .amenity img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+        }
+        .amenities .amenity h3 {
+            font-size: 1.5em;
+            color: #333;
+        }
+        .amenities .amenity p {
+            color: #666;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        footer p {
+            font-size: 0.9em;
+        }
+        footer a {
+            color: #28a745;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Welcome to Hotel Bliss</h1>
+            <p>Experience luxury, comfort, and world-class service.</p>
+            <a href="info.html" class="btn">Book Now</a>
+            <a href="history.html" class="btn">Room Vacate</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="container">
+            <h2>About Us</h2>
+            <p>Hotel Bliss offers an unforgettable stay, blending modern amenities with exquisite decor. Our prime location and luxurious facilities provide a perfect retreat, whether you're here for business or leisure. Experience the finest hospitality in a place you'll want to return to again and again.</p>
+        </div>
+    </section>
+
+    <!-- Amenities Section -->
+    <section class="amenities">
+        <div class="container">
+            <div class="amenity">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTTRgv9gkTENjuONlNX5LNrZu7LpraYD_yBA&s" alt="Free WiFi">
+                <h3>Free WiFi</h3>
+                <p>Stay connected with high-speed internet throughout the hotel.</p>
+            </div>
+            <div class="amenity">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRS1i7JAB0T_K-CzgsdlL1CooHAeFdUHIxImA&s" alt="Swimming Pool">
+                <h3>Swimming Pool</h3>
+                <p>Relax and unwind in our heated indoor pool with a beautiful view.</p>
+            </div>
+    
+            <div class="amenity">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHoBcsQ4iKGOestztXLU5AFIfFHhYu8d40yg&s" alt="Fitness Center">
+                <h3>Fitness Center</h3>
+                <p>Maintain your workout routine in our state-of-the-art fitness center.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Hotel Bliss. All rights reserved. <br>
+            <a href="privacy.html">Privacy Policy</a> | <a href="contact.html">Contact Us</a></p>
+        </div>
+    </footer>
+
+</body>
+</html>

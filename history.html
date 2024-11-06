@@ -1,0 +1,69 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking History</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link your CSS file here -->
+     
+</head>
+<style>
+    #bookingHistorySection {
+    margin: 20px;
+    font-family: Arial, sans-serif;
+}
+
+#bookingHistoryTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#bookingHistoryTable th, #bookingHistoryTable td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+#bookingHistoryTable th {
+    background-color: #f2f2f2;
+}
+
+button {
+    background-color: #ff6666;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+button:hover {
+    background-color: #ff4d4d;
+}
+
+</style>
+<body>
+    <div id="bookingHistorySection">
+        <h2>Booking History</h2>
+        <table id="bookingHistoryTable">
+            <thead>
+                <tr>
+                    <th>Booking ID</th>
+                    <th>Booking Date</th>
+                    <th>Total Cost</th>
+                    <th>Room ID</th>
+                    <th>Room Type</th>
+                    <th>Extra Bed</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="bookingHistoryBody">
+                <!-- Rows will be populated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="history.js"></script>
+</body>
+</html>

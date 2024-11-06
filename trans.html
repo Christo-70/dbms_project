@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Payment Method</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        label {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            font-size: 1.1em;
+            color: #fff;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #218838;
+        }
+
+        .total-amount {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Loading spinner styles */
+        .spinner-container {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin-top: 20px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 4px solid #3498db;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            margin-top: 10px;
+            font-size: 1.1em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h2>Select Payment Method</h2>
+
+    <!-- Display Total Amount -->
+    <div class="total-amount" id="totalAmountDisplay">
+        Total amount = ₹ 0
+    </div>
+
+    <!-- Payment Information -->
+    <div class="payment-methods">
+        <label>
+            <input type="radio" name="paymentMethod" value="credit" onclick="showPaymentFields('credit')">
+            Credit Card
+        </label>
+
+        <label>
+            <input type="radio" name="paymentMethod" value="debit" onclick="showPaymentFields('debit')">
+            Debit Card
+        </label>
+
+        <label>
+            <input type="radio" name="paymentMethod" value="cash" onclick="showPaymentFields('cash')">
+            Cash
+        </label>
+    </div>
+
+    <!-- Credit/Debit Card Information -->
+    <div id="cardFields" class="hidden">
+        <label for="cardNumber">Card Number</label>
+        <input type="text" id="cardNumber" placeholder="Enter your card number">
+
+        <label for="expiryDate">Expiry Date</label>
+        <input type="text" id="expiryDate" placeholder="MM/YY">
+
+        <label for="cvv">CVV</label>
+        <input type="number" id="cvv" placeholder="CVV">
+    </div>
+
+    <!-- Cash Payment Information -->
+    <div id="cashFields" class="hidden">
+        <p>You have selected Cash payment. Please pay at the hotel reception upon arrival.</p>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loading" class="spinner-container">
+        <div class="spinner"></div>
+        <div class="loading-text">Processing...</div>
+    </div>
+
+    <!-- Complete Transaction Button -->
+    <button class="btn" id="completeBtn" onclick="completeTransaction()">Complete Transaction</button>
+
+</div>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="payment.js"></script>
+<!-- <script>
+    // Get the total amount from the URL query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const totalAmount = urlParams.get('amount');
+    
+    // Display the total amount
+    document.getElementById('totalAmountDisplay').innerText = `Total amount = ₹ ${totalAmount}`;
+
+    // Show/hide payment fields based on selected method
+    function showPaymentFields(method) {
+        document.getElementById("cardFields").classList.add("hidden");
+        document.getElementById("cashFields").classList.add("hidden");
+
+        if (method === "credit" || method === "debit") {
+            document.getElementById("cardFields").classList.remove("hidden");
+        } else if (method === "cash") {
+            document.getElementById("cashFields").classList.remove("hidden");
+        }
+    }
+
+    // Function to handle transaction completion
+    function completeTransaction() {
+        const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
+        
+        if (!paymentMethod) {
+            alert('Please select a payment method.');
+            return;
+        }
+
+        if (paymentMethod.value === 'credit' || paymentMethod.value === 'debit') {
+            const cardNumber = document.getElementById('cardNumber').value;
+            const expiryDate = document.getElementById('expiryDate').value;
+            const cvv = document.getElementById('cvv').value;
+
+            if (!cardNumber || !expiryDate || !cvv) {
+                alert('Please fill in all card details.');
+                return;
+            }
+        }
+
+        // Show loading spinner and hide button
+        document.getElementById('completeBtn').style.display = 'none';
+        document.getElementById('loading').style.display = 'flex';
+
+        // Simulate a loading window for 3.5 seconds
+        setTimeout(function() {
+            // After 3.5 seconds, redirect to transconfirm.html
+            window.location.href = `transconfirm.html`;
+        }, 3500);
+    }
+</script> -->
+
+</body>
+</html>
+

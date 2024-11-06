@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Successful</title>
+    <style>
+        /* Reset and Basic Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #4caf50, #81c784);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        /* Container Styling */
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        /* Animated Checkmark Icon */
+        .success-icon {
+            font-size: 48px;
+            color: #4caf50;
+            margin-bottom: 15px;
+            animation: popIn 0.3s ease-out forwards;
+        }
+        
+        /* Heading and Paragraph Styling */
+        h1 {
+            font-size: 26px;
+            margin: 10px 0;
+            color: #333;
+        }
+        p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        /* Button Styling */
+        .home-button {
+            text-decoration: none;
+            color: #fff;
+            background-color: #4caf50;
+            padding: 12px 25px;
+            border-radius: 25px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        .home-button:hover {
+            background-color: #388e3c;
+            transform: translateY(-3px);
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Animations */
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success-icon">✔️</div>
+        <h1>Transaction Successful!</h1>
+        <p>Your payment has been processed successfully. Thank you for your purchase!</p>
+        <a href="info.html" class="home-button">Return to Home</a>
+    </div>
+</body>
+</html>
+

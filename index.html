@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRESTVIEW - Login</title>
+    <link rel="stylesheet" href="styless.css">
+</head>
+<body>
+    <div class="container">
+        <h2 class="welcome">WELCOME TO CRESTVIEW</h2>
+        <p class="subtitle">Log in to enjoy exclusive hotel bookings and benefits</p>
+        <form onsubmit="return loginRedirect(event)">
+            <div class="input-group">
+                <label for="username">Username/Email</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="input-group checkbox-group">
+                <input type="checkbox" id="remember-me" name="remember-me">
+                <label for="remember-me">Remember Me</label>
+            </div>
+            
+            <div class="options">
+                <button type="submit" class="login-button">Login</button>
+                <button type="button" class="forgot-password">Forgot Password?</button>
+            </div>
+        </form>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="login.js"></script>
+    <!-- <script>
+        function loginRedirect() {
+            // Simulate login process (you can add actual authentication later)
+            // Redirect to the index.html page after a successful login
+            window.location.href = "info.html";
+            return false; // Prevent actual form submission (since it's just a redirect)
+        }
+    </script> -->
+</body>
+</html>
